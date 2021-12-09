@@ -76,21 +76,33 @@
         //INSERT datafunction
 
         function InsertData() {
-            if (re_password.value == password.value) {
-                set(ref(db, "Users/" + username.value), {
-                    Username: username.value,
-                    Email: email.value,
-                    Password: password.value
-                })
-                    .then(() => {
-                        alert("SignUp successfully");
-                        location.href = "index.html";
-                    })
-                    .catch((error) => {
-                        alert("unsuccesful, error" + error);
-                    });
-            }
-            else alert("Re-Password does not match Password, please try again!");
+            const dbref = ref(db);
+            get(child(dbref, "Users/" + username.value)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    alert("The user is registered");
+                }
+                else {
+                    if (re_password.value == password.value) {
+                        set(ref(db, "Users/" + username.value), {
+                            Username: username.value,
+                            Email: email.value,
+                            Password: password.value
+                        })
+                            .then(() => {
+                                alert("SignUp successfully");
+                                location.href = "index.html";
+                            })
+                            .catch((error) => {
+                                alert("unsuccesful, error" + error);
+                            });
+                    }
+                    else alert("Re-Password does not match Password, please try again!");
+                }
+            })
+                .catch((error) => {
+                    alert("unsuccessful, error" + error);
+                });
+
         }
 
         //Assign Events to Btns

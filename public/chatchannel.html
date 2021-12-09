@@ -110,20 +110,32 @@
         //InsertData
 
         function InsertData(room) {
-            set(ref(db, "Rooms/" + room), {
-                RoomNumber: room,
-                PassRoom: pass_cre.value
+            const dbref = ref(db);
+            get(child(dbref, "Rooms/" + room)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    alert("The room is registered");
+                }
+                else {
+                    set(ref(db, "Rooms/" + room), {
+                        RoomNumber: room,
+                        PassRoom: pass_cre.value
+                    })
+                        .then(() => {
+                            alert("Room created");
+                            var url = location.href;
+                            var index = url.indexOf("?");
+                            url = url.slice(index + 1, url.length);
+                            location.href = "chat.html?" + url + "&room=" + room;
+                        })
+                        .catch((error) => {
+                            alert("unsuccesful, error" + error);
+                        });
+                }
             })
-                .then(() => {
-                    alert("Room created");
-                    var url = location.href;
-                    var index = url.indexOf("?");
-                    url = url.slice(index + 1, url.length);
-                    location.href = "chat.html?" + url + "&room=" + room;
-                })
                 .catch((error) => {
-                    alert("unsuccesful, error" + error);
+                    alert("unsuccessful, error" + error);
                 });
+
         }
         //Assign Events to Btns
 
