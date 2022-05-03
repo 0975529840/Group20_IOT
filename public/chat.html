@@ -18,7 +18,9 @@
       <img
         src="https://www.hust.edu.vn/documents/21257/147855/2.+BVP-Logo+BK-RGB/c2f94a78-f713-4af1-b9f0-7f6c4cb94438?version=1.1&t=1617353232000&imagePreview=1"
         width="50" />
-      <a href="index.html" class="btn" id="leave-btn">Leave Room</a>
+      <button id="returnchnel"onclick="ReturnChannel()">Leave Room</button>
+      <a href="index.html" class="btn" id="leave-btn">Log Out</a>
+      
     </header>
 
     <main class="chat-main">
@@ -45,5 +47,13 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/main.js"></script>
 </body>
-
+<script>
+  function ReturnChannel(){
+    var url = location.href;
+    var index = url.indexOf("?");
+    var index2= url.indexOf("&")
+    url = url.slice(index + 1, index2);
+    location.href = "chatchannel.html?" + url;
+  }
+</script>
 </html>

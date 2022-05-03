@@ -61,7 +61,16 @@ a {
 	align-items: center;
 	justify-content: space-between;
 }
-
+.chat-header #returnchnel{
+	cursor: pointer;
+	padding: 5px 15px;
+	background: var(--light-color);
+	color: var(--dark-color-a);
+	border: 0;
+	font-size: 17px;
+	border-radius: 4px;
+	transform: translateX(-80%);
+}
 .chat-main {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
